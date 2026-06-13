@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Mahasiswa</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<script>
+    // Proteksi Halaman Login
+    if (localStorage.getItem("login") !== "true") {
+    window.location.href = "/"; // Diubah menjadi /
+}
+</script>
+
+<div class="container">
+    <h1> Sistem Informasi Data Mahasiswa</h1>
+
+    <form id="mahasiswaForm">
+        <div class="form-grid">
+            <div class="form-group">
+                <input type="text" id="nim" placeholder="NIM" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <input type="text" id="nama" placeholder="Nama Mahasiswa" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <input type="text" id="jurusan" placeholder="Jurusan" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <input type="number" id="semester" placeholder="Semester" min="1" max="14" required>
+            </div>
+        </div>
+        <button type="submit" class="btn-submit">Tambah Mahasiswa</button>
+    </form>
+
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>NIM</th>
+                    <th>Nama</th>
+                    <th>Jurusan</th>
+                    <th>Semester</th>
+                    <th style="text-align: center;">Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="tabelMahasiswa">
+                </tbody>
+        </table>
+    </div>
+
+    <div class="logout-wrapper">
+        <button onclick="logout()" class="btn-logout">Logout dari Sistem</button>
+    </div>
+</div>
+
+<script src="/js/script.js"></script>
+
+<script>
+    function logout() {
+    localStorage.removeItem("login");
+    window.location.href = "/"; // Diubah menjadi /
+}
+</script>
+
+</body>
+</html>

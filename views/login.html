@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+        background: linear-gradient(
+            135deg,
+        #b0e0e6 0%,
+        #f8f4e8 50%,
+        #ffb6c1 100%
+            );
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .login-container {
+            background:
+            linear-gradient(
+                180deg,
+                #fff7f8,
+                #fff1f4
+            );
+            padding: 40px 30px;
+            border-radius: 30px;
+            border: 4px solid #957662;
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.08),
+                0 0 0 8px #ffe8ec;
+            width: 100%;
+            max-width: 380px;
+        }
+
+        /* --- BARU: CSS UNTUK LOGO DI TENGAH --- */
+        .logo-wrapper {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-wrapper img {
+            width: 160px; /* Mengatur lebar logo */
+            height: auto;
+            object-fit: contain;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            color: #5f5550;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+
+        /* Subtitle tambahan di bawah judul (opsional, seperti contoh gambarmu) */
+        .login-container p.subtitle {
+            text-align: center;
+            color:#FF7FA8;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 22px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            background: white;
+            border: 2px solid #FFB6C1;
+            border-radius: 15px;
+            font-size: 15px;
+            transition: .3s;
+        }
+
+        .password-wrapper input {
+            padding-right: 45px;
+        }
+
+        input:focus {
+            border-color: #ffb6c1;
+            box-shadow:
+            0 0 0 4px rgba(255,182,193,.3);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 14px;
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+            width: auto;
+            color: #888888;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: color 0.2s;
+        }
+
+        .toggle-password:hover {
+            color: #333333;
+            background: none;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background:
+            linear-gradient(
+                90deg,
+                #ffb6c1,
+                #ffd1dc
+            );
+            color:#4D4D4D;
+            font-weight: 700;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow:
+            0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-submit:active {
+            background: #004080;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    
+    <div class="logo-wrapper">
+        <img src="Logoumk.png">
+    </div>
+
+    <h2>Sistem Informasi Data Mahasiswa</h2>
+    <p class="subtitle">Silahkan Login</p>
+    <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 20px;">
+    
+    <form id="loginForm">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Masukkan username" required autocomplete="off">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="password" placeholder="Masukkan password" required>
+                <button type="button" id="togglePassword" class="toggle-password" title="Lihat Password">
+                    <i data-lucide="eye"></i>
+                </button>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Masuk</button>
+    </form>
+</div>
+
+<script>
+    lucide.createIcons();
+
+    const passwordInput = document.getElementById("password");
+    const togglePasswordBtn = document.getElementById("togglePassword");
+
+    togglePasswordBtn.addEventListener("click", function() {
+        const icon = this.querySelector("i");
+        
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.setAttribute("data-lucide", "eye-off");
+            this.title = "Sembunyikan Password";
+        } else {
+            passwordInput.type = "password";
+            icon.setAttribute("data-lucide", "eye");
+            this.title = "Lihat Password";
+        }
+        
+        lucide.createIcons();
+    });
+
+    // Fungsi Proses Login
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); 
+
+        const usernameInput = document.getElementById("username").value.trim();
+        const passwordValue = passwordInput.value;
+
+        if (usernameInput === "admin" && passwordValue === "admin123") {
+            localStorage.setItem("login", "true");
+            window.location.href = "/index.html";
+        } else {
+            alert("Username atau Password salah!");
+        }
+    });
+</script>
+
+</body>
+</html>
